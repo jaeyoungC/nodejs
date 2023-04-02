@@ -1,3 +1,4 @@
+const { query } = require("express");
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -9,17 +10,41 @@ app.get("/", function (req, res) {
   res.send("Hello World");
 });
 
-app.get("/dog", function (req, res) {
-  res.json({'sound':'멍멍'});
+//parameter
+// app.get("/user/:id", function (req, res) {
+//     const q = req.params
+//     console.log(q.id);
+// });
+
+//query
+// app.get("/user/:id", function (req, res) {
+//     const q = req.query
+//     console.log(q.q);
+//     console.log(q.name);
+//     console.log(q.age);
+//     res.json({'userid':q.name});
+// });
+
+
+app.get("/sound/:name", function (req, res) {
+    const { name } = req.params
+    if (name == "dog") {
+        res.json({'sound':'mungmung'});
+    } else if (name == "cat") {
+        res.json({'sound':'yaong'});
+    } 
+    else{
+        res.json({'sound':'unknown'});
+    }
+    console.log(name);
+  
 });
 
-app.get("/cat", function (req, res) {
-  res.json({'sound':'야옹'});
-});
 
-app.get("/", function (req, res) {
-  res.send("Hello World");
-});
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port${port}`);
